@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      html-file: "${{ steps.PublishHtml.outputs.html-file }}"
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -21,6 +23,9 @@ jobs:
       - name: Build Angular Application
         run: npm run build
         working-directory: ./StoreApp
+      - name: publish Html File to output
+        id: PublishHtml
+        run:  find ./StoreApp/dist/StoreApp/*.html -type f -execdir echo 'html-file={}' >> $GITHUB_OUPUT ';'
       - name: upload artifact
         uses : actions/upload-artifact@v4
         with:
@@ -37,6 +42,8 @@ jobs:
            name: angular-app
        - name: output content
          run: ls -R
+       - name: show html file
+         run: echo "${{ needs.build.outputs.html-file }}"
        - name: deploy
          run: echo "deploying application" 
         
