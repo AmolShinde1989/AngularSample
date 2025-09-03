@@ -25,7 +25,7 @@ jobs:
         working-directory: ./StoreApp
       - name: publish Html File to output
         id: PublishHtml
-        run:  find ./StoreApp/dist/StoreApp/*.html -type f -execdir echo 'html-file={}' >> $GITHUB_OUPUT ';'
+        run:  find ./StoreApp/dist/StoreApp -name '*.html' -type f -execdir echo 'html-file={}' >> $GITHUB_OUTPUT ';'
       - name: upload artifact
         uses : actions/upload-artifact@v4
         with:
