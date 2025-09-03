@@ -34,7 +34,6 @@ jobs:
          uses: actions/download-artifact@v4
          with:
            name: angular-app
-           path: ./angular-app
        - name: output content
          run: ls -R
        - name: deploy
