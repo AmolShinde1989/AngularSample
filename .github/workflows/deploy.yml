@@ -5,15 +5,7 @@ on:
       - main
 jobs:
   build:
-    continue-on-error: true
-    strategy:
-      matrix:
-        node-version: [18,22.x]
-        operating-system: [ubuntu-latest,windows-latest]
-        include:
-          - node-version: 20.x
-            operating-system: ubuntu-latest   
-    runs-on: ${{ matrix.operating-system }}
+    runs-on: ubuntu-latest
     outputs:
       html-file: "${{ steps.PublishHtml.outputs.html-file }}"
     steps:
@@ -23,7 +15,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix['node-version'] }}
+          node-version: 22.x
       - name: cache dependencies
         uses: actions/cache@v3
         with: 
